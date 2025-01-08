@@ -36,10 +36,10 @@ class Program
 
         Console.WriteLine("\nYou guessed it!");
         Console.WriteLine($"It took you {attempts} attempts.");
-        Console.WriteLine("\nDo you want to play again? (y/n)");
+        Console.WriteLine("\nDo you want to play again? (yes/no)");
         string playAgain = Console.ReadLine();
 
-        if (playAgain == "y")
+        if (playAgain == "yes")
         {
             PlayGame();
         }
