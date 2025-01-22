@@ -60,11 +60,16 @@ class Program
         Console.WriteLine(randomPrompt);
         string response = Console.ReadLine();
 
+        Console.WriteLine("What is your mood level (0=sad ... 10=very happy): ");
+        string moodLevelInput = Console.ReadLine();
+        int moodLevel = int.Parse(moodLevelInput);
+
         _journal.AddEntry(
             new Entry(
                 DateTime.Now,
                 randomPrompt,
-                response
+                response,
+                moodLevel
             )
         );
     }

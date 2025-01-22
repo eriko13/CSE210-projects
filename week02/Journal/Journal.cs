@@ -21,7 +21,7 @@ public class Journal {
          
         using (StreamWriter writer = new StreamWriter(filename)) {
             foreach (Entry entry in _entries) {
-                writer.WriteLine(entry.ToFormattedString());
+                writer.WriteLine(entry.Display());
             }
         }
     }
@@ -38,8 +38,9 @@ public class Journal {
                 DateTime date = DateTime.Parse(parts[0]);
                 string prompt = parts[1];
                 string response = parts[2];
+                int moodLevel = int.Parse(parts[3]);
 
-                Entry newEntry = new Entry(date, prompt, response);
+                Entry newEntry = new Entry(date, prompt, response, moodLevel);
 
                 _entries.Add(newEntry);
             }
