@@ -1,5 +1,5 @@
 using System;
-
+// Added [moodLevel] to the Entry class as exceeding the requirements
 class Program
 {   
 
