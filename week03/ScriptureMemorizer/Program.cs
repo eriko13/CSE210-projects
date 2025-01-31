@@ -5,8 +5,8 @@ class Program
     static void Main(string[] args)
     {
 
-        Reference reference = new Reference("John", 3, 16);
-        Scripture scripture = new Scripture(reference, "For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life.");
+        Reference reference = new Reference("John", 18, 36, 38);
+        Scripture scripture = new Scripture(reference, "Jesus said, 'My kingdom is not of this world. If it were, my servants would fight to prevent my arrest by the Jews. But now my kingdom is from another place.' You are a king, then! said Pilate. Jesus answered, 'You are right in saying I am a king. In fact, for this reason I was born, and for this I came into the world, to testify to the truth. Everyone on the side of truth listens to me.' What is truth? Pilate asked. With this he went out again to the Jews and said, 'I find no basis for a charge against him.'");
         string response = "";
 
            

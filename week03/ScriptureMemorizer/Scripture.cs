@@ -27,7 +27,7 @@ public class Scripture
     }
 
     public void HideRandomWords(int count)
-    {
+    {   
         Random random = new Random();
         List<int> listOfNonHiddenIndexes = [];
 
@@ -40,7 +40,12 @@ public class Scripture
         }
 
         for (int j = 0; j < count; j++)
-        {
+        {   
+            if(listOfNonHiddenIndexes.Count == 0)
+            {
+                break;
+            }
+            
             int index = listOfNonHiddenIndexes[random.Next(0, listOfNonHiddenIndexes.Count)];
             _words[index].Hide();
             listOfNonHiddenIndexes.Remove(index);
