@@ -11,10 +11,10 @@ public class Entry
         _moodLevel = moodLevel;
     }
 
-    public DateTime _date;
-    public string _prompt;
-    public string _response;
-    public int _moodLevel;
+    private DateTime _date;
+    private string _prompt;
+    private string _response;
+    private int _moodLevel;
 
     public string Display()
     {
