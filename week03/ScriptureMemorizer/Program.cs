@@ -1,4 +1,7 @@
 using System;
+// I added BibleScriptures to the program as exceed requirements
+// Bibscriptures is a class that contains a dictionary of scriptures
+// and can return a random scripture from the dictionary
 
 class Program
 {
