@@ -1,15 +1,25 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 
 public class Activity
 {
     protected string _name;
     protected string _description;
     protected int _duration;
+    private static Dictionary<string, int> _sessionLog = new Dictionary<string, int>();
+    private string _logFile = "mindfulness_log.txt";
 
     public Activity(string name, string description)
     {
         _name = name;
         _description = description;
+        
+        // Initialize session count if not exists
+        if (!_sessionLog.ContainsKey(_name))
+        {
+            _sessionLog[_name] = 0;
+        }
     }
 
     public void DisplayStartingMessage()
@@ -18,6 +28,8 @@ public class Activity
         Console.WriteLine($"Welcome to the {_name}.");
         Console.WriteLine();
         Console.WriteLine(_description);
+        Console.WriteLine();
+        Console.WriteLine($"You have completed this activity {_sessionLog[_name]} times this session.");
         Console.WriteLine();
         Console.Write("How long, in seconds, would you like for your session? ");
         _duration = int.Parse(Console.ReadLine());
@@ -35,6 +47,8 @@ public class Activity
         Console.WriteLine();
         Console.WriteLine($"You have completed another {_duration} seconds of the {_name}.");
         ShowLoadingAnimation(3);
+        
+        _sessionLog[_name]++;
     }
 
     protected void ShowLoadingAnimation(int seconds)

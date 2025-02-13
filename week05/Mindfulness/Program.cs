@@ -1,5 +1,19 @@
 using System;
 
+/*
+Mindfulness Program - Enhanced Features
+
+This program exceeds the base requirements in the following ways:
+
+1. Enhanced Animation Features:
+   - Added a dancing stick figure animation that changes colors
+   - Implemented growing/shrinking box for breathing exercises
+
+2. Activity Tracking and Logging:
+   - Tracks number of times each activity is performed per session
+   
+*/
+
 class Program
 {
     static void Main(string[] args)
