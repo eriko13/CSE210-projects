@@ -55,7 +55,6 @@ public class ReflectionActivity : Activity
             string question = GetRandomQuestion();
             Console.Write($"\n> {question} ");
             Console.ReadLine();
-            ShowLoadingAnimation(3);
         }
 
         DisplayEndingMessage();

@@ -14,7 +14,7 @@ public class Activity
     {
         _name = name;
         _description = description;
-        
+
         // Initialize session count if not exists
         if (!_sessionLog.ContainsKey(_name))
         {
@@ -47,7 +47,7 @@ public class Activity
         Console.WriteLine();
         Console.WriteLine($"You have completed another {_duration} seconds of the {_name}.");
         ShowLoadingAnimation(3);
-        
+
         _sessionLog[_name]++;
     }
 
@@ -95,7 +95,7 @@ public class Activity
                 Console.WriteLine(line);
             }
 
-            Thread.Sleep(200);
+            Thread.Sleep(150);
 
             frameIndex = (frameIndex + 1) % danceFrames.Length;
             colorIndex = (colorIndex + 1) % colors.Length;
