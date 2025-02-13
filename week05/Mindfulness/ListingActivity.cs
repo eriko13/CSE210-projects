@@ -4,11 +4,11 @@ public class ListingActivity : Activity
 {
     private List<string> _prompts = new List<string>
     {
-        "Who are people that you appreciate?",
-        "What are personal strengths of yours?",
-        "Who are people that you have helped this week?",
-        "When have you felt the Holy Ghost this month?",
-        "Who are some of your personal heroes?"
+        "What are some of your favorite memories from the past year?",
+        "What goals have you accomplished recently?",
+        "What are things that make you feel peaceful?", 
+        "What are some small acts of kindness you've witnessed?",
+        "What are things you're looking forward to in the future?"
     };
 
     public ListingActivity()

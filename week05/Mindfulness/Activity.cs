@@ -72,24 +72,23 @@ public class Activity
 
         while (DateTime.Now < endTime)
         {
-            Console.Clear();  // Clear previous frame
+            Console.Clear();
             Console.ForegroundColor = colors[colorIndex];
 
-            // Split the frame into lines and write each line
             string[] lines = danceFrames[frameIndex].Split('\n');
             foreach (string line in lines)
             {
                 Console.WriteLine(line);
             }
 
-            Thread.Sleep(200);  // Control animation speed
+            Thread.Sleep(200);
 
             frameIndex = (frameIndex + 1) % danceFrames.Length;
             colorIndex = (colorIndex + 1) % colors.Length;
         }
 
-        Console.ForegroundColor = ConsoleColor.Gray;  // Reset color
-        Console.Clear();  // Clear the last frame
+        Console.ForegroundColor = ConsoleColor.Gray;
+        Console.Clear();
     }
 
     protected void ShowCountDown(int seconds)
