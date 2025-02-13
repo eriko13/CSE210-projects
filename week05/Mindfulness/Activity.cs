@@ -24,38 +24,72 @@ public class Activity
 
         Console.Clear();
         Console.WriteLine("Get ready...");
-        ShowSpinner(3);
+        ShowLoadingAnimation(3);
     }
 
     public void DisplayEndingMessage()
     {
         Console.WriteLine();
         Console.WriteLine("Well done!!");
-        ShowSpinner(3);
+        ShowLoadingAnimation(3);
         Console.WriteLine();
         Console.WriteLine($"You have completed another {_duration} seconds of the {_name}.");
-        ShowSpinner(3);
+        ShowLoadingAnimation(3);
     }
 
-    protected void ShowSpinner(int seconds)
+    protected void ShowLoadingAnimation(int seconds)
     {
-        List<string> spinnerStrings = new List<string> { "|", "/", "-", "\\" };
-        DateTime startTime = DateTime.Now;
-        DateTime endTime = startTime.AddSeconds(seconds);
+        string[] danceFrames = {
+            @"    o
+    /|\
+    / \",
 
-        int i = 0;
+            @"    o
+    /|\
+    | |",
+
+            @"     o_
+    /|
+    / \",
+
+            @"   \o/
+    |
+    / \",
+
+            @"    o_
+   /|
+   / \",
+
+            @"    o
+   \|/
+    / \"
+        };
+
+        DateTime endTime = DateTime.Now.AddSeconds(seconds);
+        int frameIndex = 0;
+        ConsoleColor[] colors = { ConsoleColor.Cyan, ConsoleColor.Blue, ConsoleColor.Magenta };
+        int colorIndex = 0;
+
         while (DateTime.Now < endTime)
         {
-            string s = spinnerStrings[i];
-            Console.Write(s);
-            Thread.Sleep(200);
-            Console.Write("\b \b");
-            i++;
-            if (i >= spinnerStrings.Count)
+            Console.Clear();  // Clear previous frame
+            Console.ForegroundColor = colors[colorIndex];
+
+            // Split the frame into lines and write each line
+            string[] lines = danceFrames[frameIndex].Split('\n');
+            foreach (string line in lines)
             {
-                i = 0;
+                Console.WriteLine(line);
             }
+
+            Thread.Sleep(200);  // Control animation speed
+
+            frameIndex = (frameIndex + 1) % danceFrames.Length;
+            colorIndex = (colorIndex + 1) % colors.Length;
         }
+
+        Console.ForegroundColor = ConsoleColor.Gray;  // Reset color
+        Console.Clear();  // Clear the last frame
     }
 
     protected void ShowCountDown(int seconds)
@@ -67,4 +101,4 @@ public class Activity
             Console.Write("\b \b");
         }
     }
-} 
+}
