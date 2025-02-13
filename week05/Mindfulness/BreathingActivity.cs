@@ -2,18 +2,70 @@ using System;
 
 public class BreathingActivity : Activity
 {
-    private string[] _boxFramesIn = {
-        "□",
-        "▢",
-        "▣",
-        "■"
+    private string[] _breatheInFrames = {
+        @"
+    ┌─────┐
+    │     │
+    │     │
+    │     │
+    └─────┘",
+        @"
+   ┌───────┐
+   │       │
+   │       │
+   │       │
+   └───────┘",
+        @"
+  ┌─────────┐
+  │         │
+  │         │
+  │         │
+  └─────────┘",
+        @"
+ ┌───────────┐
+ │           │
+ │           │
+ │           │
+ └───────────┘",
+        @"
+┌─────────────┐
+│             │
+│             │
+│             │
+└─────────────┘"
     };
 
-    private string[] _boxFramesOut = {
-        "■",
-        "▣", 
-        "▢",
-        "□"
+    private string[] _breatheOutFrames = {
+        @"
+┌─────────────┐
+│             │
+│             │
+│             │
+└─────────────┘",
+        @"
+ ┌───────────┐
+ │           │
+ │           │
+ │           │
+ └───────────┘",
+        @"
+  ┌─────────┐
+  │         │
+  │         │
+  │         │
+  └─────────┘",
+        @"
+   ┌───────┐
+   │       │
+   │       │
+   │       │
+   └───────┘",
+        @"
+    ┌─────┐
+    │     │
+    │     │
+    │     │
+    └─────┘"
     };
 
     public BreathingActivity() 
@@ -31,11 +83,17 @@ public class BreathingActivity : Activity
 
         while (DateTime.Now < endTime)
         {
-            Console.Write("\nBreathe in...");
-            ShowBreathingAnimation(_boxFramesIn, 5);
-            Console.Write("\nBreathe out...");
-            ShowBreathingAnimation(_boxFramesOut, 5);
+            // Breathing in phase
+            Console.Clear();
+            Console.WriteLine("\nBreathe in...");
             Console.WriteLine();
+            ShowBreathingAnimation(_breatheInFrames, 4);
+            
+            // Breathing out phase
+            Console.Clear();
+            Console.WriteLine("\nBreathe out...");
+            Console.WriteLine();
+            ShowBreathingAnimation(_breatheOutFrames, 6);
         }
 
         DisplayEndingMessage();
@@ -44,14 +102,29 @@ public class BreathingActivity : Activity
     private void ShowBreathingAnimation(string[] frames, int seconds)
     {
         DateTime endTime = DateTime.Now.AddSeconds(seconds);
-        int frameIndex = 0;
+        double totalDuration = (endTime - DateTime.Now).TotalMilliseconds;
+        int frameCount = frames.Length;
         
-        while (DateTime.Now < endTime)
+        for (int i = 0; i < frameCount; i++)
         {
-            Console.Write("\r");
-            Console.Write($"{frames[frameIndex]} {(int)(endTime - DateTime.Now).TotalSeconds + 1}");
-            Thread.Sleep(250);
-            frameIndex = (frameIndex + 1) % frames.Length;
+            // Clear everything except the first two lines (breathing instruction)
+            Console.SetCursorPosition(0, 2);
+            for (int j = 0; j < 10; j++)  // Clear enough lines to cover the previous frame
+            {
+                Console.WriteLine(new string(' ', Console.WindowWidth));
+            }
+            
+            // Return cursor to start drawing position
+            Console.SetCursorPosition(0, 2);
+            Console.WriteLine(frames[i]);
+            
+            // Show countdown at the bottom of the box
+            int remainingSeconds = (int)Math.Ceiling((endTime - DateTime.Now).TotalSeconds);
+            Console.WriteLine($"\nSeconds remaining: {remainingSeconds}");
+            
+            // Calculate pause duration to make animation smooth across the total time
+            int pauseDuration = (int)(seconds * 1000 / frameCount);
+            Thread.Sleep(pauseDuration);
         }
     }
 } 
