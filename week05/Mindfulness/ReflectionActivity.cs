@@ -54,7 +54,8 @@ public class ReflectionActivity : Activity
         {
             string question = GetRandomQuestion();
             Console.Write($"\n> {question} ");
-            ShowSpinner(10);
+            Console.ReadLine();  // Allow user to type their answer
+            ShowSpinner(3);  // Short pause after answer before next question
         }
 
         DisplayEndingMessage();
