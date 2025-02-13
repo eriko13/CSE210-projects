@@ -107,22 +107,18 @@ public class BreathingActivity : Activity
         
         for (int i = 0; i < frameCount; i++)
         {
-            // Clear everything except the first two lines (breathing instruction)
             Console.SetCursorPosition(0, 2);
-            for (int j = 0; j < 10; j++)  // Clear enough lines to cover the previous frame
+            for (int j = 0; j < 10; j++)
             {
                 Console.WriteLine(new string(' ', Console.WindowWidth));
             }
             
-            // Return cursor to start drawing position
             Console.SetCursorPosition(0, 2);
             Console.WriteLine(frames[i]);
             
-            // Show countdown at the bottom of the box
             int remainingSeconds = (int)Math.Ceiling((endTime - DateTime.Now).TotalSeconds);
             Console.WriteLine($"\nSeconds remaining: {remainingSeconds}");
             
-            // Calculate pause duration to make animation smooth across the total time
             int pauseDuration = (int)(seconds * 1000 / frameCount);
             Thread.Sleep(pauseDuration);
         }
