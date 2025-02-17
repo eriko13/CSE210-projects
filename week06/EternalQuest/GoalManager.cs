@@ -9,15 +9,15 @@ public class GoalManager
         _score = 0;
     }
 
-    private int _score;
     private List<Goal> _goals;
+    private int _score;
 
     public void Start()
     {
 
-        bool running = true;
+        string choice = "";
 
-        while (running)
+        while (choice != "6")
         {
             DisplayPlayerInfo();
             Console.WriteLine("\nMenu Options:");
@@ -29,7 +29,7 @@ public class GoalManager
             Console.WriteLine("6. Quit");
             Console.Write("Select a choice from the menu: ");
 
-            string choice = Console.ReadLine();
+            choice = Console.ReadLine();
 
             switch (choice)
             {
@@ -49,7 +49,7 @@ public class GoalManager
                     RecordEvent();
                     break;
                 case "6":
-                    running = false;
+                    Console.WriteLine("Goodbye!");
                     break;
                 default:
                     Console.WriteLine("Invalid choice. Please try again.");
@@ -139,7 +139,7 @@ public class GoalManager
             
             Console.WriteLine($"Congratulations! You have earned {points} points!");
             
-            if (goal is ChecklistGoal checklistGoal && checklistGoal.IsCompleted())
+            if (goal is ChecklistGoal checklistGoal && checklistGoal.IsComplete())
             {
                 int bonus = checklistGoal.GetBonus();
                 _score += bonus;

@@ -12,7 +12,7 @@ public class SimpleGoal : Goal
         _isComplete = true;
     }
 
-    public override bool IsCompleted()
+    public override bool IsComplete()
     {
         return _isComplete;
     }
@@ -27,7 +27,7 @@ public class SimpleGoal : Goal
 
     public override string GetStringRepresentation()
     {
-        
+
         return $"SimpleGoal:{_shortName},{_description},{_points},{_isComplete}";
     }
 } 

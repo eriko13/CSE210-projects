@@ -6,12 +6,13 @@ public class EternalGoal : Goal
 
     public override void RecordEvent()
     {
-        // Eternal goals are never complete, but they give points each time
+        // eternal goals are never complete
     }
 
-    public override bool IsCompleted()
+    public override bool IsComplete()
     {
-        return false; // Eternal goals are never complete
+        // eternal goals are never complete
+        return false;
     }
 
     public override string GetDetailsString()
