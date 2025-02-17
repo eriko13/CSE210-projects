@@ -2,15 +2,31 @@ using System.Text;
 
 public class GoalManager
 {
+    private List<Goal> _goals;
+    private int _score;
+    private int _level;
+    private readonly int _pointsPerLevel = 100; // Points needed to level up
 
     public GoalManager()
     {
         _goals = new List<Goal>();
         _score = 0;
+        _level = 1;
     }
 
-    private List<Goal> _goals;
-    private int _score;
+    private void UpdateLevel(int previousScore)
+    {
+        int oldLevel = previousScore / _pointsPerLevel + 1;
+        int newLevel = _score / _pointsPerLevel + 1;
+        
+        if (newLevel > oldLevel)
+        {
+            _level = newLevel;
+            Console.WriteLine($"\n🎉 LEVEL UP! 🎉");
+            Console.WriteLine($"Congratulations! You've reached level {_level}!");
+            Console.WriteLine($"Keep going! Next level at {_level * _pointsPerLevel} points.");
+        }
+    }
 
     public void Start()
     {
@@ -60,7 +76,11 @@ public class GoalManager
 
     public void DisplayPlayerInfo()
     {
-        Console.WriteLine($"\nYou have {_score} points.");
+        Console.WriteLine($"\n=== Player Status ===");
+        Console.WriteLine($"Level: {_level}");
+        Console.WriteLine($"Points: {_score}");
+        Console.WriteLine($"Points needed for next level: {(_level * _pointsPerLevel) - _score}");
+        Console.WriteLine($"==================");
     }
 
     public void ListGoalNames()
@@ -132,21 +152,23 @@ public class GoalManager
         if (int.TryParse(Console.ReadLine(), out int index) && index > 0 && index <= _goals.Count)
         {
             Goal goal = _goals[index - 1];
-            goal.RecordEvent();
+            int previousScore = _score;
             
+            goal.RecordEvent();
             int points = goal.GetPoints();
             _score += points;
             
-            Console.WriteLine($"Congratulations! You have earned {points} points!");
+            Console.WriteLine($"\n⭐ Congratulations! You have earned {points} points!");
             
             if (goal is ChecklistGoal checklistGoal && checklistGoal.IsComplete())
             {
                 int bonus = checklistGoal.GetBonus();
                 _score += bonus;
-                Console.WriteLine($"You have earned a bonus of {bonus} points!");
+                Console.WriteLine($"🎯 BONUS! You have earned an additional {bonus} points!");
             }
             
-            Console.WriteLine($"You now have {_score} points.");
+            UpdateLevel(previousScore);
+            Console.WriteLine($"\nTotal points: {_score}");
         }
         else
         {
@@ -161,7 +183,7 @@ public class GoalManager
 
         using (StreamWriter writer = new StreamWriter(filename))
         {
-            writer.WriteLine(_score);
+            writer.WriteLine($"{_score},{_level}");
             foreach (Goal goal in _goals)
             {
                 writer.WriteLine(goal.GetStringRepresentation());
@@ -185,7 +207,9 @@ public class GoalManager
 
         if (lines.Length > 0)
         {
-            _score = int.Parse(lines[0]);
+            string[] scoreAndLevel = lines[0].Split(',');
+            _score = int.Parse(scoreAndLevel[0]);
+            _level = scoreAndLevel.Length > 1 ? int.Parse(scoreAndLevel[1]) : _score / _pointsPerLevel + 1;
 
             for (int i = 1; i < lines.Length; i++)
             {
